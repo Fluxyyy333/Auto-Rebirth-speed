@@ -1,12 +1,13 @@
 -- ============================================================
---  Fluxy | Auto Rebirth + Upgrade Speed
+--  Fluxy | Auto Rebirth + Upgrade Speed + Collect + Auto Speed
 -- ============================================================
 
 -- [ CONFIG ]
-local UPGRADE_AMOUNT    = 1   -- amount per upgrade
-local REBIRTH_INTERVAL  = 10   -- seconds
-local UPGRADE_INTERVAL  = 1  -- seconds
-local COLLECT_INTERVAL  = 5    -- seconds
+local UPGRADE_AMOUNT    = 1    -- amount per upgrade
+local REBIRTH_INTERVAL  = 60   -- seconds
+local UPGRADE_INTERVAL  = 10    -- seconds
+local COLLECT_INTERVAL  = 40    -- seconds
+local TARGET_SPEED      = 500  -- stop upgrading speed when WalkSpeed >= this, also used for auto speed rejoin
 
 -- ============================================================
 
@@ -18,8 +19,31 @@ local Networking      = RS:WaitForChild("Shared"):WaitForChild("Remotes"):WaitFo
 local RF_PlotAction   = Networking:WaitForChild("RF/PlotAction")
 local RF_Rebirth      = RS:WaitForChild("RemoteFunctions"):WaitForChild("Rebirth")
 local RF_UpgradeSpeed = RS:WaitForChild("RemoteFunctions"):WaitForChild("UpgradeSpeed")
+local RE_SetSetting   = Networking:WaitForChild("RE/Settings/SetSetting")
 
--- Auto detect Plot ID
+-- ============================================================
+--  AUTO SPEED (fire + rejoin jika belum mencapai target)
+-- ============================================================
+
+local char = lp.Character or lp.CharacterAdded:Wait()
+local hum  = char:WaitForChild("Humanoid")
+
+print("Fluxy Speed: Current WalkSpeed = " .. hum.WalkSpeed)
+
+if hum.WalkSpeed < TARGET_SPEED then
+    print("Fluxy Speed: Setting speed to " .. TARGET_SPEED .. " then rejoining...")
+    RE_SetSetting:FireServer("PlayerSpeed", TARGET_SPEED)
+    task.wait(1)
+    game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, lp)
+    return
+end
+
+print("Fluxy Speed: Already at target (" .. hum.WalkSpeed .. ") — skip rejoin")
+
+-- ============================================================
+--  AUTO DETECT PLOT ID
+-- ============================================================
+
 local PlotID = nil
 task.spawn(function()
     local elapsed = 0
@@ -39,7 +63,10 @@ task.spawn(function()
     end
 end)
 
--- Auto Rebirth
+-- ============================================================
+--  AUTO REBIRTH
+-- ============================================================
+
 task.spawn(function()
     while task.wait(REBIRTH_INTERVAL) do
         pcall(function()
@@ -49,16 +76,27 @@ task.spawn(function()
     end
 end)
 
--- Auto Upgrade Speed
+-- ============================================================
+--  AUTO UPGRADE SPEED (berhenti jika sudah mencapai TARGET_SPEED)
+-- ============================================================
+
 task.spawn(function()
     while task.wait(UPGRADE_INTERVAL) do
+        local currentChar = lp.Character
+        local currentHum  = currentChar and currentChar:FindFirstChild("Humanoid")
+        if currentHum and currentHum.WalkSpeed >= TARGET_SPEED then
+            continue
+        end
         pcall(function()
             RF_UpgradeSpeed:InvokeServer(UPGRADE_AMOUNT)
         end)
     end
 end)
 
--- Auto Collect Money
+-- ============================================================
+--  AUTO COLLECT MONEY
+-- ============================================================
+
 task.spawn(function()
     while task.wait(COLLECT_INTERVAL) do
         if PlotID then
@@ -69,4 +107,4 @@ task.spawn(function()
     end
 end)
 
-print("Fluxy: Auto Rebirth + Upgrade Speed + Collect Money active")
+print("Fluxy: Auto Rebirth + Upgrade Speed + Collect Money + Auto Speed active")
