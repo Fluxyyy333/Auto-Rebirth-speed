@@ -3,9 +3,9 @@
 -- ============================================================
 
 -- [ CONFIG ]
-local UPGRADE_AMOUNT    = 1    -- amount per upgrade
+local UPGRADE_AMOUNT    = 2    -- amount per upgrade
 local REBIRTH_INTERVAL  = 60   -- seconds
-local UPGRADE_INTERVAL  = 10    -- seconds
+local UPGRADE_INTERVAL  = 30    -- seconds
 local COLLECT_INTERVAL  = 40    -- seconds
 local TARGET_SPEED      = 500  -- stop upgrading speed when WalkSpeed >= this, also used for auto speed rejoin
 
@@ -30,12 +30,16 @@ local hum  = char:WaitForChild("Humanoid")
 
 print("Fluxy Speed: Current WalkSpeed = " .. hum.WalkSpeed)
 
-if hum.WalkSpeed < TARGET_SPEED then
-    print("Fluxy Speed: Setting speed to " .. TARGET_SPEED .. " then rejoining...")
+if hum.WalkSpeed > TARGET_SPEED then
+    print("Fluxy Speed: WalkSpeed " .. hum.WalkSpeed .. " > target " .. TARGET_SPEED .. " — setting & rejoining...")
     RE_SetSetting:FireServer("PlayerSpeed", TARGET_SPEED)
     task.wait(1)
     game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, lp)
     return
+elseif hum.WalkSpeed == TARGET_SPEED then
+    print("Fluxy Speed: Already at target (" .. hum.WalkSpeed .. ") — skip rejoin")
+else
+    print("Fluxy Speed: WalkSpeed " .. hum.WalkSpeed .. " < target " .. TARGET_SPEED .. " — upgrading via loop")
 end
 
 print("Fluxy Speed: Already at target (" .. hum.WalkSpeed .. ") — skip rejoin")
