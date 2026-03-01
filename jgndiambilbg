@@ -1,0 +1,533 @@
+-- ============================================================
+--  Fluxy | Auto Booth
+-- ============================================================
+
+if not game:IsLoaded() then game.Loaded:Wait() end
+task.wait(3)
+
+-- ============================================================
+--  CONFIG
+-- ============================================================
+
+-- Brainrot to list 
+local BRAINROT_COLOSSAL = {
+    ["Draculini Meowlini"] = 35,
+    ["Cupitron Consoletron"] = 35,
+}
+
+-- Brainrot to list 
+local BRAINROT_NORMAL = {
+    ["Draculini Meowlini"] = 30,
+    ["Cupitron Consoletron"] = 30,
+    ["Meta Technetta"] = 700,
+    ["Magmew"] = 700,
+    ["Anububu"] = 300,
+}
+
+local COLOSSAL_THRESHOLD = 1.7
+
+-- Accounts that are allowed to gift you (multiple supported)
+local MAIN_ACCOUNTS = {
+    "EVANGT190YT",
+}
+
+-- Mutation prefixes to strip before name matching
+local MUTATION_PREFIXES = { "Doom", "Emerald", "Gold", "Blood", "Candy", "Money", "Diamond", "Gamer" }
+
+-- Interval to re-list items already in booth (seconds)
+local RELIST_INTERVAL  = 30
+
+-- UI toggle
+local UI_ENABLED       = true
+
+-- ============================================================
+
+local Players    = game:GetService("Players")
+local lp         = Players.LocalPlayer
+local RS         = game:GetService("ReplicatedStorage")
+
+local Networking     = RS:WaitForChild("Shared"):WaitForChild("Remotes"):WaitForChild("Networking")
+local RF_ClaimBooth  = Networking:WaitForChild("RF/ClaimBooth")
+local RF_ListBooth   = Networking:WaitForChild("RF/ListBoothOffering")
+local RF_TradeRespond = Networking:WaitForChild("RF/TradeRespondToOffer")
+
+-- Resolve main account IDs
+local MainUserIDs = {}
+for _, name in ipairs(MAIN_ACCOUNTS) do
+    local id = 0
+    pcall(function() id = Players:GetUserIdFromNameAsync(name) end)
+    if id ~= 0 then
+        table.insert(MainUserIDs, tostring(id))
+        print("Fluxy Booth: Main ID [" .. name .. "] = " .. id)
+    end
+end
+
+-- ============================================================
+--  HELPER
+-- ============================================================
+
+local function getBaseName(displayName)
+    for _, prefix in ipairs(MUTATION_PREFIXES) do
+        local pattern = "^" .. prefix .. "%s+"
+        if string.match(displayName, pattern) then
+            return string.gsub(displayName, pattern, "", 1)
+        end
+    end
+    return displayName
+end
+
+local function getDisplayName(tool)
+    return tool:GetAttribute("BrainrotName")
+        or tool:GetAttribute("DisplayName")
+        or tool.Name
+end
+
+local function getTradeTokens()
+    local ls = lp:FindFirstChild("leaderstats")
+    if ls then
+        local t = ls:FindFirstChild("Trade Tokens")
+        if t then return tostring(t.Value) end
+    end
+    return "?"
+end
+
+local function unequipAll()
+    local char = lp.Character
+    if not char then return end
+    local hum = char:FindFirstChild("Humanoid")
+    if hum then pcall(function() hum:UnequipTools() end) end
+end
+
+-- ============================================================
+--  UI
+-- ============================================================
+
+local uiSetStatus    = function() end
+local uiSetTokens    = function() end
+local claimedBoothId = nil
+local copiedJobId    = false
+
+if UI_ENABLED then
+    local gui = Instance.new("ScreenGui", lp:WaitForChild("PlayerGui"))
+    gui.Name, gui.ResetOnSpawn, gui.IgnoreGuiInset = "FluxyBooth", false, true
+    gui.DisplayOrder = 999
+
+    -- Fullscreen solid black
+    local bg = Instance.new("Frame", gui)
+    bg.Size             = UDim2.new(1, 0, 1, 0)
+    bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    bg.BorderSizePixel  = 0
+
+    -- Title
+    local titleLbl = Instance.new("TextLabel", bg)
+    titleLbl.Size                   = UDim2.new(1, 0, 0.12, 0)
+    titleLbl.Position               = UDim2.new(0, 0, 0.08, 0)
+    titleLbl.BackgroundTransparency = 1
+    titleLbl.Text                   = "Fluxy | Auto Booth"
+    titleLbl.TextColor3             = Color3.fromRGB(240, 240, 240)
+    titleLbl.Font                   = Enum.Font.GothamBold
+    titleLbl.TextScaled             = true
+    titleLbl.TextXAlignment         = Enum.TextXAlignment.Center
+
+    -- Nickname
+    local nickLbl = Instance.new("TextLabel", bg)
+    nickLbl.Size                    = UDim2.new(1, 0, 0.06, 0)
+    nickLbl.Position                = UDim2.new(0, 0, 0.20, 0)
+    nickLbl.BackgroundTransparency  = 1
+    nickLbl.Text                    = lp.DisplayName
+    nickLbl.TextColor3              = Color3.fromRGB(120, 120, 120)
+    nickLbl.Font                    = Enum.Font.Gotham
+    nickLbl.TextScaled              = true
+    nickLbl.TextXAlignment          = Enum.TextXAlignment.Center
+
+    -- Divider
+    local divider = Instance.new("Frame", bg)
+    divider.AnchorPoint             = Vector2.new(0.5, 0)
+    divider.Size                    = UDim2.new(0.5, 0, 0, 1)
+    divider.Position                = UDim2.new(0.5, 0, 0.28, 0)
+    divider.BackgroundColor3        = Color3.fromRGB(40, 40, 40)
+    divider.BorderSizePixel         = 0
+
+    -- Stats container
+    local statsFrame = Instance.new("Frame", bg)
+    statsFrame.AnchorPoint          = Vector2.new(0.5, 0.5)
+    statsFrame.Size                 = UDim2.new(0.72, 0, 0.38, 0)
+    statsFrame.Position             = UDim2.new(0.5, 0, 0.52, 0)
+    statsFrame.BackgroundTransparency = 1
+
+    local layout = Instance.new("UIListLayout", statsFrame)
+    layout.FillDirection            = Enum.FillDirection.Vertical
+    layout.HorizontalAlignment      = Enum.HorizontalAlignment.Center
+    layout.Padding                  = UDim.new(0.04, 0)
+    layout.SortOrder                = Enum.SortOrder.LayoutOrder
+
+    local function makeRow(label, order)
+        local row = Instance.new("Frame", statsFrame)
+        row.Size             = UDim2.new(1, 0, 0.28, 0)
+        row.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+        row.BorderSizePixel  = 0
+        row.LayoutOrder      = order
+        Instance.new("UICorner", row).CornerRadius = UDim.new(0.2, 0)
+
+        local strip = Instance.new("Frame", row)
+        strip.Size             = UDim2.new(0, 4, 1, 0)
+        strip.BackgroundColor3 = Color3.fromRGB(180, 180, 180)
+        strip.BorderSizePixel  = 0
+        Instance.new("UICorner", strip).CornerRadius = UDim.new(0.5, 0)
+
+        local lbl = Instance.new("TextLabel", row)
+        lbl.Size                   = UDim2.new(0.52, 0, 1, 0)
+        lbl.Position               = UDim2.new(0, 14, 0, 0)
+        lbl.BackgroundTransparency = 1
+        lbl.Text                   = label
+        lbl.TextColor3             = Color3.fromRGB(150, 150, 150)
+        lbl.Font                   = Enum.Font.Gotham
+        lbl.TextScaled             = true
+        lbl.TextXAlignment         = Enum.TextXAlignment.Left
+
+        local val = Instance.new("TextLabel", row)
+        val.Size                   = UDim2.new(0.42, 0, 1, 0)
+        val.Position               = UDim2.new(0.56, 0, 0, 0)
+        val.BackgroundTransparency = 1
+        val.Text                   = "-"
+        val.TextColor3             = Color3.fromRGB(220, 220, 220)
+        val.Font                   = Enum.Font.GothamBold
+        val.TextScaled             = true
+        val.TextXAlignment         = Enum.TextXAlignment.Right
+
+        return val
+    end
+
+    local valTokens = makeRow("Trade Tokens", 1)
+    local valStatus = makeRow("Booth Status",  2)
+
+    -- Job ID row with copy button
+    local jobRow = Instance.new("Frame", statsFrame)
+    jobRow.Size             = UDim2.new(1, 0, 0.28, 0)
+    jobRow.BackgroundColor3 = Color3.fromRGB(14, 14, 14)
+    jobRow.BorderSizePixel  = 0
+    jobRow.LayoutOrder      = 3
+    Instance.new("UICorner", jobRow).CornerRadius = UDim.new(0.2, 0)
+
+    local jobStrip = Instance.new("Frame", jobRow)
+    jobStrip.Size             = UDim2.new(0, 4, 1, 0)
+    jobStrip.BackgroundColor3 = Color3.fromRGB(180, 180, 180)
+    jobStrip.BorderSizePixel  = 0
+    Instance.new("UICorner", jobStrip).CornerRadius = UDim.new(0.5, 0)
+
+    local jobLbl = Instance.new("TextLabel", jobRow)
+    jobLbl.Size                   = UDim2.new(0.38, 0, 1, 0)
+    jobLbl.Position               = UDim2.new(0, 14, 0, 0)
+    jobLbl.BackgroundTransparency = 1
+    jobLbl.Text                   = "Job ID"
+    jobLbl.TextColor3             = Color3.fromRGB(150, 150, 150)
+    jobLbl.Font                   = Enum.Font.Gotham
+    jobLbl.TextScaled             = true
+    jobLbl.TextXAlignment         = Enum.TextXAlignment.Left
+
+    local copyBtn = Instance.new("TextButton", jobRow)
+    copyBtn.Size             = UDim2.new(0.52, 0, 0.65, 0)
+    copyBtn.AnchorPoint      = Vector2.new(1, 0.5)
+    copyBtn.Position         = UDim2.new(0.98, 0, 0.5, 0)
+    copyBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    copyBtn.BorderSizePixel  = 0
+    copyBtn.Text             = "Copy Job ID"
+    copyBtn.TextColor3       = Color3.fromRGB(200, 200, 200)
+    copyBtn.Font             = Enum.Font.GothamBold
+    copyBtn.TextScaled       = true
+    Instance.new("UICorner", copyBtn).CornerRadius = UDim.new(0.3, 0)
+    local cpStroke = Instance.new("UIStroke", copyBtn)
+    cpStroke.Color, cpStroke.Thickness = Color3.fromRGB(55, 55, 55), 1
+
+    copyBtn.MouseButton1Click:Connect(function()
+        local jobId = game.JobId
+        setclipboard(jobId)
+        copyBtn.Text = "Copied!"
+        task.wait(2)
+        copyBtn.Text = "Copy Job ID"
+    end)
+
+    -- Toggle button
+    local toggleBtn = Instance.new("TextButton", gui)
+    toggleBtn.AnchorPoint      = Vector2.new(0.5, 0)
+    toggleBtn.Size             = UDim2.new(0.22, 0, 0.055, 0)
+    toggleBtn.Position         = UDim2.new(0.5, 0, 0.74, 0)
+    toggleBtn.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+    toggleBtn.BorderSizePixel  = 0
+    toggleBtn.Text             = "Hide UI"
+    toggleBtn.TextColor3       = Color3.fromRGB(200, 200, 200)
+    toggleBtn.Font             = Enum.Font.GothamBold
+    toggleBtn.TextScaled       = true
+    Instance.new("UICorner", toggleBtn).CornerRadius = UDim.new(0.3, 0)
+    local tStroke = Instance.new("UIStroke", toggleBtn)
+    tStroke.Color, tStroke.Thickness = Color3.fromRGB(50, 50, 50), 1
+
+    local isOpen = true
+    toggleBtn.MouseButton1Click:Connect(function()
+        isOpen         = not isOpen
+        bg.Visible     = isOpen
+        toggleBtn.Text = isOpen and "Hide UI" or "Show UI"
+    end)
+
+    -- Live token update
+    task.spawn(function()
+        while true do
+            valTokens.Text = getTradeTokens()
+            task.wait(3)
+        end
+    end)
+
+    uiSetStatus = function(text, success)
+        valStatus.Text       = text
+        valStatus.TextColor3 = success
+            and Color3.fromRGB(150, 215, 150)
+            or  Color3.fromRGB(215, 150, 150)
+    end
+end
+
+-- ============================================================
+--  FIND EMPTY BOOTH
+-- ============================================================
+
+local function getOwnerText(booth)
+    local info = booth:FindFirstChild("Info")
+    if info then
+        local sg = info:FindFirstChild("SurfaceGui")
+        if sg then
+            local frame = sg:FindFirstChild("Frame")
+            if frame then
+                local ownerLbl = frame:FindFirstChild("Owner")
+                if ownerLbl and ownerLbl:IsA("TextLabel") then
+                    return ownerLbl.Text
+                end
+            end
+        end
+    end
+    return nil
+end
+
+local function isClaimedByMe(booth)
+    local txt = getOwnerText(booth)
+    print("Fluxy Booth: Owner text = " .. tostring(txt) .. " | lp.Name = " .. lp.Name .. " | lp.DisplayName = " .. lp.DisplayName)
+    if not txt then return false end
+    if txt == "Unclaimed Booth" or txt == "" then return false end
+    -- Check if our username or display name appears anywhere in the owner text
+    return string.find(txt, lp.Name, 1, true) ~= nil
+        or string.find(txt, lp.DisplayName, 1, true) ~= nil
+end
+
+local function isBoothEmpty(booth)
+    -- Method 1: check attribute
+    local owner = booth:GetAttribute("Owner") or booth:GetAttribute("Holder")
+    if owner and owner ~= "" and owner ~= "Unclaimed Booth" then return false end
+
+    -- Method 2: check Owner TextLabel
+    local txt = getOwnerText(booth)
+    if txt and txt ~= "Unclaimed Booth" and txt ~= "" then return false end
+
+    return true
+end
+
+local function findEmptyBooth()
+    local booths = workspace:FindFirstChild("GameObjects")
+        and workspace.GameObjects:FindFirstChild("Booths")
+    if not booths then
+        warn("Fluxy Booth: Booths folder not found!")
+        return nil
+    end
+    for _, booth in ipairs(booths:GetChildren()) do
+        if isBoothEmpty(booth) then
+            return booth
+        end
+    end
+    return nil
+end
+
+-- ============================================================
+--  CLAIM BOOTH
+-- ============================================================
+
+local function claimBooth(booth)
+    local boothId = booth.Name
+
+    -- Step 1: Teleport to booth position
+    local char = lp.Character
+    local hrp  = char and char:FindFirstChild("HumanoidRootPart")
+    if not hrp then
+        warn("Fluxy Booth: No HumanoidRootPart!")
+        return false
+    end
+
+    local tpTarget = nil
+    for _, child in ipairs(booth:GetChildren()) do
+        if child:IsA("BasePart") then tpTarget = child break end
+        for _, sub in ipairs(child:GetChildren()) do
+            if sub:IsA("BasePart") then tpTarget = sub break end
+        end
+        if tpTarget then break end
+    end
+
+    if tpTarget then
+        hrp.CFrame = CFrame.new(tpTarget.Position + Vector3.new(0, 4, 0))
+        print("Fluxy Booth: Teleported to booth " .. boothId)
+    end
+    task.wait(0.8)
+
+    -- Step 2: Trigger ProximityPrompt
+    local promptPart = booth:FindFirstChild("Meshes/unclv3_Cube.003")
+    local prompt = promptPart
+        and promptPart:FindFirstChild("Prompt")
+        and promptPart.Prompt:FindFirstChild("ProximityPrompt")
+
+    if prompt then
+        pcall(function() fireproximityprompt(prompt) end)
+        print("Fluxy Booth: ProximityPrompt fired")
+        task.wait(0.8)
+    else
+        warn("Fluxy Booth: ProximityPrompt not found on booth " .. boothId)
+    end
+
+    -- Step 3: Invoke remote
+    local ok, err = pcall(function()
+        RF_ClaimBooth:InvokeServer(boothId, false)
+    end)
+
+    if ok then
+        claimedBoothId = boothId
+        uiSetStatus("Claimed", true)
+        print("Fluxy Booth: Claim sent — " .. boothId)
+        return true
+    else
+        warn("Fluxy Booth: Claim remote failed — " .. tostring(err))
+        uiSetStatus("Claim Failed", false)
+        return false
+    end
+end
+
+-- ============================================================
+--  LIST ITEMS
+-- ============================================================
+
+local function listItems()
+    local bp = lp:FindFirstChild("Backpack")
+    if not bp then return end
+
+    local listed = 0
+    for _, tool in ipairs(bp:GetChildren()) do
+        if not tool:IsA("Tool") then continue end
+
+        local display  = getDisplayName(tool)
+        local baseName = getBaseName(display)
+        local scale    = tool:GetAttribute("Scale") or 0
+        local colossal = scale > COLOSSAL_THRESHOLD
+
+        local price = colossal and BRAINROT_COLOSSAL[baseName] or BRAINROT_NORMAL[baseName]
+
+        if price then
+            local ok = pcall(function()
+                RF_ListBooth:InvokeServer(tool.Name, price)
+            end)
+            if ok then
+                listed += 1
+                local sizeTag = colossal and "[Colossal]" or "[Normal]"
+                print("Fluxy Booth: Listed " .. sizeTag .. " [" .. display .. "] @ " .. price)
+            end
+            task.wait(0.3)
+        end
+    end
+    if listed > 0 then
+        uiSetStatus("Listed " .. listed .. " items", true)
+    end
+end
+
+-- ============================================================
+--  AUTO ACCEPT GIFT + AUTO UNEQUIP
+-- ============================================================
+
+local function startAcceptingGifts()
+    -- Unequip anything that lands in character hands immediately
+    local charConn = lp.Character and lp.Character.ChildAdded:Connect(function(item)
+        if item:IsA("Tool") then
+            task.wait(0.1)
+            unequipAll()
+        end
+    end)
+
+    -- Re-list on interval
+    task.spawn(function()
+        while true do
+            task.wait(RELIST_INTERVAL)
+            print("Fluxy Booth: Re-listing interval triggered")
+            listItems()
+        end
+    end)
+
+    -- Accept loop (runs forever, background)
+    task.spawn(function()
+        while true do
+            for _, uid in ipairs(MainUserIDs) do
+                pcall(function()
+                    RF_TradeRespond:InvokeServer(uid, true)
+                end)
+            end
+            task.wait(1)
+        end
+    end)
+
+    return charConn
+end
+
+-- ============================================================
+--  MAIN FLOW
+--
+--  1. Find empty booth (retry if claim fails)
+--  2. Claim it (TP → ProximityPrompt → Remote → verify Owner text)
+--  3. List whitelisted items from backpack
+--  4. Accept gifts continuously, re-list automatically on ChildAdded
+-- ============================================================
+
+task.spawn(function()
+    -- Step 1: Find & claim booth (retry until success)
+    local claimed = false
+    while not claimed do
+        uiSetStatus("Searching...", false)
+        print("Fluxy Booth: Searching for empty booth...")
+
+        local booths = workspace:FindFirstChild("GameObjects")
+            and workspace.GameObjects:FindFirstChild("Booths")
+        if not booths then
+            warn("Fluxy Booth: Booths folder not found!")
+            task.wait(5)
+            continue
+        end
+
+        for _, booth in ipairs(booths:GetChildren()) do
+            if isBoothEmpty(booth) then
+                if claimBooth(booth) then
+                    claimed = true
+                    break
+                end
+                -- Claim failed (owner text still unclaimed) → try next booth
+                task.wait(0.5)
+            end
+        end
+
+        if not claimed then
+            warn("Fluxy Booth: All booths failed — retrying in 5s")
+            task.wait(5)
+        end
+    end
+
+    task.wait(1)
+
+    -- Step 2: Initial listing
+    print("Fluxy Booth: Initial listing...")
+    listItems()
+
+    -- Step 3: Start accept loop (re-list handled via ChildAdded inside)
+    uiSetStatus("Claimed — Idle", true)
+    startAcceptingGifts()
+    -- Script stays alive via the internal task.spawn loop
+end)
+
+print("Fluxy Booth: All systems active!")
