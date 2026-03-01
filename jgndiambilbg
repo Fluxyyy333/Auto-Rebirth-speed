@@ -9,18 +9,18 @@ task.wait(3)
 --  CONFIG
 -- ============================================================
 
--- Brainrot to list 
+-- Brainrot to list — COLOSSAL version (Scale > 1.7)
 local BRAINROT_COLOSSAL = {
-    ["Draculini Meowlini"] = 35,
-    ["Cupitron Consoletron"] = 35,
-}
-
--- Brainrot to list 
-local BRAINROT_NORMAL = {
     ["Draculini Meowlini"] = 30,
     ["Cupitron Consoletron"] = 30,
-    ["Meta Technetta"] = 700,
-    ["Magmew"] = 700,
+}
+
+-- Brainrot to list — NORMAL version (Scale <= 1.7)
+local BRAINROT_NORMAL = {
+    ["Draculini Meowlini"] = 15,
+    ["Cupitron Consoletron"] = 10,
+    ["Meta Technetta"] = 650,
+    ["Magmew"] = 650,
     ["Anububu"] = 300,
 }
 
