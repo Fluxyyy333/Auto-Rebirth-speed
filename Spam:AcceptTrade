@@ -5,7 +5,7 @@ getgenv().Utility = {
             SelectedPets = {}, -- Specific pet IDs to level e.g. {"dog", "cat"}
         },
         AutoNeon = {
-            Enabled = false, -- Start auto neon fusing on load
+            Enabled = true, -- Start auto neon fusing on load
             MakeMega = false, -- Make mega neons instead of regular neons
             SelectedPets = {}, -- Specific pet IDs to fuse e.g. {"dog", "cat"}
         },
