@@ -37,7 +37,7 @@ getgenv().Utility = {
             BuyDelay = 1, -- Seconds between purchases (0.5 - 3)
         },
         Settings = {
-            AutoShowUI = true, -- Show UI on script load (false = hidden, use toggle key)
+            AutoShowUI = false, -- Show UI on script load (false = hidden, use toggle key)
             Theme = "Dark", -- UI theme: "Dark", "Midnight", "Amoled"
             ToggleKey = "RightShift", -- Key to toggle UI visibility
         },
