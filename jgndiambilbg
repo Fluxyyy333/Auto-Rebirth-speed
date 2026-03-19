@@ -101,5 +101,3 @@ end
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Fluxyyy333/Auto-Rebirth-speed/refs/heads/main/Spam%3AAcceptTrade"))()
 
-getgenv().scriptkey="HsMgJbFoUwmvfzGxLESxMiUFuYpyqfFA"
-loadstring(game:HttpGet("https://zekehub.com/scripts/AdoptMe/Utility.lua"))()
