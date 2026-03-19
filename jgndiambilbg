@@ -1,11 +1,4 @@
--- ============================================
---   ADOPT ME HOPPER - FINAL SCRIPT
---   by Claude x EvanGT190YT
---   Features:
---     [1] Performance Optimizer
---     [2] Auto Set Trade -> Everyone
---     [3] Dynamic Remote Scan (anti-update)
--- ============================================
+Disable anu and auto accept
 
 local Players = game:GetService("Players")
 local Lighting = game:GetService("Lighting")
@@ -106,14 +99,7 @@ else
     warn("[TRADE] Remote tidak ditemukan! Cek update Adopt Me terbaru.")
 end
 
--- ============================================
--- [3] LOADSTRING HOPPER
--- ============================================
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Fluxyyy333/Auto-Rebirth-speed/refs/heads/main/Spam%3AAcceptTrade"))()
 
-print("[HOPPER] Memuat hopper...")
-
--- Taruh loadstring hopper kamu di sini:
--- loadstring(game:HttpGet("https://..."))()
-
--- ============================================
-print("[DONE] Script selesai dimuat!")
+getgenv().scriptkey="HsMgJbFoUwmvfzGxLESxMiUFuYpyqfFA"
+loadstring(game:HttpGet("https://zekehub.com/scripts/AdoptMe/Utility.lua"))()
