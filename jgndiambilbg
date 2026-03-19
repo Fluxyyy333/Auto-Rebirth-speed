@@ -1,4 +1,3 @@
-Disable anu and auto accept
 
 local Players = game:GetService("Players")
 local Lighting = game:GetService("Lighting")
