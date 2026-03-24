@@ -16,7 +16,7 @@
             Usernames = {}, -- Players to trade with e.g. {"player1", "player2"}
             TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
             Categories = {"pets"}, -- Categories to include
-            Items = {"sugarfest_2026_mochi_meow". "sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
+            Items = {"sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
             PetTypes = {}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
             Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
             ItemCounts = {}, -- Max count per item per player e.g. {dog = 30, cat = 12}
@@ -24,7 +24,7 @@
                 Kind = "ALL", -- Filter by specific item ID, "ALL" = no filter
                 Type = "ALL", -- Pet type filter: "ALL", "regular", "neon", "mega"
                 Rarity = "ALL", -- Rarity filter: "ALL", "common", "uncommon", "rare", "ultra_rare", "legendary"
-                Search = "sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
+                Search = "sugarfest_2026_mochi_meow, sugarfest_2026_waffle_wyrm", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
             },
         },
         AutoOpen = {
