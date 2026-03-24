@@ -7,7 +7,7 @@
         AutoNeon = {
             Enabled = true, -- Start auto neon fusing on load
             MakeMega = true, -- Make mega neons instead of regular neons
-            SelectedPets = {"sugarfest_2026_waffle_wyrm", "sugarfest_2026_mochi_meow"}, -- Specific pet IDs to fuse e.g. {"dog", "cat"}
+            SelectedPets = {}, -- Specific pet IDs to fuse e.g. {"dog", "cat"}
         },
         AutoTrade = {
             Enabled = false, -- Start auto trading on load
