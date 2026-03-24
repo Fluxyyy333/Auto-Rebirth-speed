@@ -10,7 +10,7 @@
             SelectedPets = {}, -- Specific pet IDs to fuse e.g. {"dog", "cat"}
         },
         AutoTrade = {
-            Enabled = false, -- Start auto trading on load
+            Enabled = true, -- Start auto trading on load
             AutoAcceptTrades = true, -- Auto accept incoming trade requests
             AutoLeaveAfterTrades = false, -- Leave/shutdown when all trades complete
             Usernames = {}, -- Players to trade with e.g. {"player1", "player2"}
