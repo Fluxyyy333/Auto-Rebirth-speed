@@ -1,0 +1,61 @@
+   getgenv().Utility = {
+        AutoPotion = {
+            Enabled = true, -- Start auto potion leveling on load
+            UseAllOnAll = false, -- Use all potions on all pets (highest age first)
+            SelectedPets = {"sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm"}, -- Specific pet IDs to level e.g. {"dog", "cat"}
+        },
+        AutoNeon = {
+            Enabled = true, -- Start auto neon fusing on load
+            MakeMega = true, -- Make mega neons instead of regular neons
+            SelectedPets = {"sugarfest_2026_waffle_wyrm", "sugarfest_2026_mochi_meow"}, -- Specific pet IDs to fuse e.g. {"dog", "cat"}
+        },
+        AutoTrade = {
+            Enabled = false, -- Start auto trading on load
+            AutoAcceptTrades = true, -- Auto accept incoming trade requests
+            AutoLeaveAfterTrades = false, -- Leave/shutdown when all trades complete
+            Usernames = {}, -- Players to trade with e.g. {"player1", "player2"}
+            TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
+            Categories = {"pets"}, -- Categories to include
+            Items = {"sugarfest_2026_mochi_meow". "sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
+            PetTypes = {}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
+            Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
+            ItemCounts = {}, -- Max count per item per player e.g. {dog = 30, cat = 12}
+            Filters = {
+                Kind = "ALL", -- Filter by specific item ID, "ALL" = no filter
+                Type = "ALL", -- Pet type filter: "ALL", "regular", "neon", "mega"
+                Rarity = "ALL", -- Rarity filter: "ALL", "common", "uncommon", "rare", "ultra_rare", "legendary"
+                Search = "sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
+            },
+        },
+        AutoOpen = {
+            Enabled = false, -- Start auto opening on load
+            Items = {}, -- Item IDs to open e.g. {"gift_box", "cracked_egg"}
+            OpenDelay = 1, -- Seconds between each open (0.5 - 3)
+        },
+       Shop = {
+            Enabled = false, -- Auto buy items on load
+            Items = {}, -- Item IDs to auto buy e.g. {"cracked_egg", "hot_dog_stand"}
+            BuyQuantity = 1, -- How many to buy per purchase (1, 5, 10, 25, 50, 100)
+            BuyDelay = 1, -- Seconds between purchases (0.5 - 3)
+        },
+        AccountManager = {
+            Enabled = false, -- Master toggle for account management
+            Tool = "none", -- "yummy", "farmsync"
+            Yummy = {
+                Action = "completed", -- "completed" = remove cookie/stop, "swap" = next cookie
+                Reason = "Done", -- Suffix for completed file (Completed-{Reason})
+            },
+            FarmSync = {
+                Action = "completed", -- "completed" = move to done folder, "swap" = move and replace
+                FromFolderId = "", -- Fresh cookies folder ID
+                ToFolderId = "", -- Done cookies folder ID
+                ChangeWithoutReplacement = false, -- Remove even if no replacement available
+                ConfigId = nil, -- Config for new account (nil = same config)
+            },
+        },
+        Settings = {
+            AutoShowUI = true, -- Show UI on script load (false = hidden, use toggle key)
+            Theme = "Dark", -- UI theme: "Dark", "Midnight", "Amoled"
+            ToggleKey = "RightShift", -- Key to toggle UI visibility
+        },
+    };
