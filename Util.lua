@@ -1,7 +1,7 @@
    getgenv().Utility = {
         AutoPotion = {
             Enabled = true, -- Start auto potion leveling on load
-            UseAllOnAll = false, -- Use all potions on all pets (highest age first)
+            UseAllOnAll = true, -- Use all potions on all pets (highest age first)
             SelectedPets = {"sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm"}, -- Specific pet IDs to level e.g. {"dog", "cat"}
         },
         AutoNeon = {
