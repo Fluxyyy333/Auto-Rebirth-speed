@@ -2,7 +2,7 @@
         AutoPotion = {
             Enabled = true, -- Start auto potion leveling on load
             UseAllOnAll = false, -- Use all potions on all pets (highest age first)
-            SelectedPets = {"sugarfest_2026_mochi_meow"}, -- Specific pet IDs to level e.g. {"dog", "cat"}
+            SelectedPets = {"sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm"}, -- Specific pet IDs to level e.g. {"dog", "cat"}
         },
         AutoNeon = {
             Enabled = true, -- Start auto neon fusing on load
@@ -16,7 +16,7 @@
             Usernames = {}, -- Players to trade with e.g. {"player1", "player2"}
             TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
             Categories = {"pets"}, -- Categories to include
-            Items = {"sugarfest_2026_mochi_meow"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
+            Items = {"sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
             PetTypes = {"neon", "mega"}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
             Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
             ItemCounts = {}, -- Max count per item per player e.g. {dog = 30, cat = 12}
