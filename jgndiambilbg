@@ -24,7 +24,7 @@
                 Kind = "ALL", -- Filter by specific item ID, "ALL" = no filter
                 Type = "ALL", -- Pet type filter: "ALL", "regular", "neon", "mega"
                 Rarity = "ALL", -- Rarity filter: "ALL", "common", "uncommon", "rare", "ultra_rare", "legendary"
-                Search = "", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
+                Search = "sugarfest_2026_waffle_wyrm", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
             },
         },
         AutoOpen = {
