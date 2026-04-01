@@ -1,4 +1,44 @@
-
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Fluxyyy333/Auto-Rebirth-speed/refs/heads/main/Spam%3AAcceptTrade"))()
-
+getgenv().Utility = {
+        AutoPotion = {
+            Enabled = false, -- Start auto potion leveling on load
+            UseAllOnAll = false, -- Use all potions on all pets (highest age first)
+            SelectedPets = {}, -- Specific pet IDs to level e.g. {"dog", "cat"}
+        },
+        AutoNeon = {
+            Enabled = true, -- Start auto neon fusing on load
+            MakeMega = false, -- Make mega neons instead of regular neons
+            SelectedPets = {}, -- Specific pet IDs to fuse e.g. {"dog", "cat"}
+        },
+        AutoTrade = {
+            Enabled = true, -- Start auto trading on load
+            AutoAcceptTrades = true, -- Auto accept incoming trade requests
+            Usernames = {"Haz3lCreates96", "S4gecalebtvepic", "cosmicRexRbx", "NoraCodesVibes42", "sag3dinoBunny", "ultraSageLucasOffici", "dashezra2007", "Br4veKoalaDudeTV", "ShadowSkat3s79", "itzoliviabloxfuzzy", "R0cket_z00m1746", "ZoenationVibeskoala2", "ThefinnIsabellaVibes", "AriBloxClubRex", "ShadowMrRapidfox", "BraveravenkidYT2014", "HazellcreatesVibes", "thesagekoala2014"}, -- Players to trade with e.g. {"player1", "player2"}
+            TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
+            Categories = {"pets"}, -- Categories to include
+            Items = {"sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
+            PetTypes = {}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
+            Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
+            Filters = {
+                Kind = "ALL", -- Filter by specific item ID, "ALL" = no filter
+                Type = "ALL", -- Pet type filter: "ALL", "regular", "neon", "mega"
+                Rarity = "ALL", -- Rarity filter: "ALL", "common", "uncommon", "rare", "ultra_rare", "legendary"
+                Search = "", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
+            },
+        },
+        AutoOpen = {
+            Enabled = false, -- Start auto opening on load
+            Items = {}, -- Item IDs to open e.g. {"gift_box", "cracked_egg"}
+            OpenDelay = 1, -- Seconds between each open (0.5 - 3)
+        },
+        Shop = {
+            Enabled = false, -- Auto buy items on load
+            Items = {}, -- Item IDs to auto buy e.g. {"cracked_egg", "hot_dog_stand"}
+            BuyQuantity = 1, -- How many to buy per purchase (1, 5, 10, 25, 50, 100)
+            BuyDelay = 1, -- Seconds between purchases (0.5 - 3)
+        },
+        Settings = {
+            AutoShowUI = false, -- Show UI on script load (false = hidden, use toggle key)
+            Theme = "Dark", -- UI theme: "Dark", "Midnight", "Amoled"
+            ToggleKey = "RightShift", -- Key to toggle UI visibility
+        },
+    };
