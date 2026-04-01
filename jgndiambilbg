@@ -17,7 +17,7 @@
             TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
             Categories = {"pets"}, -- Categories to include
             Items = {"sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
-            PetTypes = {""}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
+            PetTypes = {}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
             Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
             ItemCounts = {}, -- Max count per item per player e.g. {dog = 30, cat = 12}
             Filters = {
@@ -59,5 +59,3 @@
             ToggleKey = "RightShift", -- Key to toggle UI visibility
         },
     };
-getgenv().scriptkey="HsMgJbFoUwmvfzGxLESxMiUFuYpyqfFA"
-loadstring(game:HttpGet("https://zekehub.com/scripts/AdoptMe/Utility.lua"))()
