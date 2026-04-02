@@ -17,12 +17,12 @@
             TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
             Categories = {"pets"}, -- Categories to include
             Items = {"sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
-            PetTypes = {"neon"}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
+            PetTypes = {"regular", "neon"}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
             Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
             ItemCounts = {}, -- Max count per item per player e.g. {dog = 30, cat = 12}
             Filters = {
                 Kind = "ALL", -- Filter by specific item ID, "ALL" = no filter
-                Type = "neon", -- Pet type filter: "ALL", "regular", "neon", "mega"
+                Type = "regular, neon", -- Pet type filter: "ALL", "regular", "neon", "mega"
                 Rarity = "ALL", -- Rarity filter: "ALL", "common", "uncommon", "rare", "ultra_rare", "legendary"
                 Search = "sugarfest_2026_waffle_wyrm", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
             },
