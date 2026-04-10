@@ -1,0 +1,90 @@
+getgenv().Config = {
+    Dashboard = {
+        Enabled = true, -- Connect to Adopt Me dashboard To Control Script/View Stats (https://zekehub.com/dashboard/adoptme)
+        GroupName = "Potion", -- Group name for organizing accounts on dashboard
+    },
+    BabyFarm = true, -- Does baby farm
+    PetFarm = {
+        Enabled = true, -- Enables the Pet Farm
+        FarmEggs = false, -- If true, equips eggs to hatch them. If false, equips regular pets
+        BuyEggs = false, -- If FarmEggs is true and no eggs in inventory, buy eggs automatically
+        EggTypes = {"endangered_2026_endangered_egg"}, -- Which eggs to equip ({} = any egg, or {"cracked_egg", "royal_egg"} for specific)
+        BuyEggType = "endangered_2026_endangered_egg", -- Which egg to buy when BuyEggs is true ("any" or specific egg ID)
+        MaxPets = 1, -- How many pets to equip at once (1 = free, 2 = requires Robux gamepass)
+        FarmUntilFullGrown = false, -- If true, selects pets that aren't full grown first
+        PrioritizeFriendship = false, -- If true, selects pets with higher friendship level first
+        SelectiveFarm = true, -- If true, only farm pets in SelecatedPetTypes list
+        SelectedPetTypes = {"sugarfest_2026_cocoadile", "dog", "cat", "practice_dog"}, -- Pet IDs to farm when SelectiveFarm is true (e.g., {"dog", "cat"})
+    },
+    EventFarm = {
+        CandyCliff = true, -- Automatically complete Candy Cliff event tasks and buys a chissle
+    },
+    AutoTrade = {
+        Enabled = true, -- Enable auto trading
+        AutoAcceptTrades = false, -- Accept incoming trade requests
+        Usernames = {"lucius236523", "ya55min_570166", "123_dEu63", "udkc_jfx", "TaughtGras_sNice91", "Ba_byEr1c04", "Anay3ly5221", "3gSgs_6", "3grh2_hr", "17k_vixxbe17", "1_flamingofan1011", "1tsjojo_267", "Asem1354293", "ANNA23645a7", "angel1_23x3312"}, -- Players to send trades to
+        TradeMode = "specific", -- "all" = everything in categories, "specific" = only Items list
+        Categories = {"pets"}, -- {"pets", "toys", "food", "transport", "gifts", "stickers", "pet_accessories", "roleplay"}
+        Items = {"sugarfest_2026_gumball_caterpillar","sugarfest_2026_gummy_guana","admin_abuse_egg_2026_egg","pet_recycler_2025_crystal_egg","endangered_2026_blue_whale","endangered_2026_sea_turtle", "sugarfest_2026_cocoadile"}, -- Item IDs when TradeMode = "specific"
+        ItemCounts = {}, -- Max count per item in Items array
+        PetTypes = {}, -- {} = all, {"regular", "neon", "mega"}
+        Ages = {}, -- {} = all, {1, 2, 3, 4, 5, 6}
+        AutoLeaveAfterTrades = false, -- Leave trade area after completing trades
+    },
+    AutoNeon = {
+        Enabled = true, -- Enable auto neon/mega fusion
+        MakeMega = false, -- Fuse neons into mega neons
+        NeonAll = false, -- Neon everything possible
+        SelectedPets = {"sugarfest_2026_cocoadile"}, -- {} when NeonAll = true, otherwise {"dog", "cat"} etc
+        MaxPerType = {}, -- {} = unlimited, {dog = 2, cat = 1} = limits per pet type
+    },
+    Settings = {
+        AutoShowUI = false, -- Load the UI on script start (main overlay disable for less memory usage)
+        ShowOverlay = true, -- Show stats overlay (disables 3D rendering)
+        ReduceGraphics = true, -- Reduce graphics quality to minimum
+        FPSCap = 3, -- FPS cap option (0 = uncapped)
+        LureId = "ice_dimension_2025_ice_soup_bait" -- what lure to use for example: "ice_dimension_2025_ice_soup_bait"
+    },
+    AutoPotion = {
+        Enabled = false, -- Use age potions on pets to level them up
+        SelectedPets = {"lny_2026_fire_foal"}, -- Pet IDs to use potions on (empty = does nothing)
+    },
+    AutoBuy = {
+        Enabled = true, -- Automatically buy items from shops
+        SelectedItems = {"pet_recycler_2025_crystal_egg", "endangered_2026_endangered_egg"}, -- Item IDs to buy
+        BuyAmounts = {}, -- How many of each item to buy. Example: {5, 10} buys 5 cracked_eggs and 10 sandwiches. Empty {} buys infinite of each item. If there are more items than amounts, remaining items default to infinite.
+    },
+    AutoPay = {
+        Enabled = false, -- Send bucks to another player
+        TargetPlayer = "", -- Username of player to pay bucks to
+    },
+    AutoOpen = {
+        Enabled = false, -- Open gift boxes, baits, etc automatically
+        Items = {}, -- Item IDs to auto open
+    },
+    AutoRecycle = {
+        Enabled = true, -- Toggle auto recycling on/off
+        RarityFilter = {common = {"regular","neon","mega"}, uncommon = {"regular", "neon", "mega"}, rare = {"regular", "neon", "mega"}, ultra_rare = {"regular", "neon", "mega"}},
+        AgeFilter = {}, -- Empty = all ages, or specific ages e.g. {1, 2, 3, 4, 5, 6} (1=Newborn, 6=Full Grown)
+        ExcludedPets = {"sugarfest_2026_gummy_guana","sugarfest_2026_gumball_caterpillar", "sugarfest_2026_cocoadile", "dog", "cat", "practice_dog"}, -- Pet IDs to never recycle e.g. {"dog", "cat", "shadow_dragon"}
+    },
+    IdleProgression = {
+        Enabled = true, -- Put pets in pet pen for idle leveling
+        SelectedPets = {"endangered_egg", "sugarfest_2026_cocoadile"}, -- Pet IDs to put in pet pen (empty = use all)
+        ExcludedPets = {"sugarfest_2026_gummy_guana","sugarfest_2026_gumball_caterpillar","admin_abuse_egg_2026_egg","endangered_2026_blue_whale","endangered_2026_sea_turtle","pet_recycler_2025_crystal_egg"}, -- Pet IDs to never put in pet pen
+        PriorityOrder = {}, -- Order: first = highest priority for pen slots (e.g. {"neon", "regular", "mega"})
+    },
+    Webhook = {
+        Enabled = true, -- Send webhook notifications to Discord
+        URL = "https://discord.com/api/webhooks/1441127118409830422/ZRtDiGe3Uh0VNDAlUFTIA6xnRBSoQGEi4FfuggSmFPQcMHVO4qfO8jYXUqKHDbxqdxp4", -- Discord webhook URL for notifications
+        PetUnlock = {
+            Enabled = true, -- Send webhook when hatching/unlocking a pet
+            URL = "https://discord.com/api/webhooks/1414257566162354328/RevE44lePo4Rqhowqo_lLChE1nItZTBE430_hF2kBG6uN-2WgHsxfhziPPh7rlIYiytT", -- Webhook URL for pet unlocks
+            FilterRarities = {"common", "uncommon", "rare", "legendary", "ultra_rare"}, -- Only send for these rarities
+        },
+    },
+    TaskExclusion = {
+        Enabled = false, -- Skip certain farming tasks
+        ExcludedTasks = {}, -- Task IDs to skip (e.g., {"buccaneer_band", "summerfest_bonfire"})
+    },
+};
