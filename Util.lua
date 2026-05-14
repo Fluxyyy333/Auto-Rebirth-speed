@@ -1,61 +1,206 @@
-   getgenv().Utility = {
-        AutoPotion = {
-            Enabled = true, -- Start auto potion leveling on load
-            UseAllOnAll = false, -- Use all potions on all pets (highest age first)
-            SelectedPets = {"sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm"}, -- Specific pet IDs to level e.g. {"dog", "cat"}
+-- Combined Loader: Zeke Lite + Auto Trade Sender
+
+getgenv().Config = {
+    -- ========================
+    -- ZEKE LITE (farming)
+    -- ========================
+    BabyFarm = true,
+    PetFarm = {
+        Enabled = true,
+        FarmEggs = false,
+        BuyEggs = false,
+        EggTypes = {},
+        BuyEggType = "any",
+        MaxPets = 1,
+        FarmUntilFullGrown = true,
+        PrioritizeFriendship = false,
+        SelectiveFarm = true,
+        SelectedPetTypes = {
+            "sugarfest_2026_mochi_meow",
+            "endangered_2026_sea_turtle",
+            "endangered_2026_blue_whale",
+            "pet_progression_2026_purrowl",
         },
-        AutoNeon = {
-            Enabled = true, -- Start auto neon fusing on load
-            MakeMega = true, -- Make mega neons instead of regular neons
-            SelectedPets = {}, -- Specific pet IDs to fuse e.g. {"dog", "cat"}
+    },
+    AutoNeon = {
+        Enabled = true,
+        MakeMega = false,
+        NeonAll = false,
+        SelectedPets = {
+            "sugarfest_2026_mochi_meow",
+            "endangered_2026_sea_turtle",
+            "endangered_2026_blue_whale",
+            "pet_progression_2026_purrowl",
         },
-        AutoTrade = {
-            Enabled = true, -- Start auto trading on load
-            AutoAcceptTrades = true, -- Auto accept incoming trade requests
-            AutoLeaveAfterTrades = false, -- Leave/shutdown when all trades complete
-            Usernames = {}, -- Players to trade with e.g. {"player1", "player2"}
-            TradeMode = "spesific", -- "all" = trade everything in categories, "specific" = only Items list
-            Categories = {"pets"}, -- Categories to include
-            Items = {"sugarfest_2026_mochi_meow", "sugarfest_2026_waffle_wyrm"}, -- Item IDs/names when TradeMode = "specific" e.g. {"dog", "cat", "buffalo"}
-            PetTypes = {"neon", "mega"}, -- Filter pet types, {} = all, e.g. {"regular", "neon", "mega"}
-            Ages = {}, -- Filter pet ages, {} = all, e.g. {6} for full grown only
-            ItemCounts = {}, -- Max count per item per player e.g. {dog = 30, cat = 12}
-            Filters = {
-                Kind = "ALL", -- Filter by specific item ID, "ALL" = no filter
-                Type = "ALL", -- Pet type filter: "ALL", "regular", "neon", "mega"
-                Rarity = "ALL", -- Rarity filter: "ALL", "common", "uncommon", "rare", "ultra_rare", "legendary"
-                Search = "sugarfest_2026_mochi_meow, sugarfest_2026_waffle_wyrm", -- Search filter, supports comma separated e.g. "dog, cat, buffalo"
+        MaxPerType = {},
+    },
+    AutoPotion = {
+        Enabled = true,
+        SelectedPets = {
+            "sugarfest_2026_mochi_meow",
+            "endangered_2026_sea_turtle",
+            "endangered_2026_blue_whale",
+            "pet_progression_2026_purrowl",
+        },
+        PotionVersionFilter = {},
+    },
+    AutoBuy = {
+        Enabled = true,
+        SelectedItems = {"pet_recycler_2025_crystal_egg","endangered_2026_endangered_egg"},
+        BuyAmounts = {},
+    },
+    AutoOpen = {
+        Enabled = false,
+        Items = {},
+    },
+    AutoRecycle = {
+        Enabled = true,
+        RarityFilter = {
+            common = {"regular","neon","mega"},
+            uncommon = {"regular","neon","mega"},
+            rare = {"regular","neon","mega"},
+            ultra_rare = {"regular","neon","mega"},
+        },
+        AgeFilter = {},
+        ExcludedPets = {},
+    },
+    IdleProgression = {
+        Enabled = true,
+        SelectedPets = {"endangered_2026_endangered_egg"},
+        ExcludedPets = {
+            "sugarfest_2026_gumball_caterpillar",
+            "admin_abuse_egg_2026_egg",
+            "pet_recycler_2025_crystal_egg",
+            "penguins_2025_dango_penguins",
+            "food_pets_2026_dragonfruit_fox",
+            "endangered_2026_silverback_gorilla",
+            "lss_2026_glormy_crab",
+            "sugarfest_2026_mochi_meow",
+            "endangered_2026_sea_turtle",
+            "endangered_2026_blue_whale",
+            "pet_progression_2026_purrowl",
+            "admin_abuse_2025_sushi_penguin",
+            "admin_abuse_egg_2026_robot_chicken",
+        },
+        PriorityOrder = {"regular"},
+        PenVersionFilter = {},
+    },
+    Settings = {
+        ShowOverlay = true,
+        ReduceGraphics = true,
+        FPSCap = 2,
+        LureId = "ice_dimension_2025_ice_soup_bait",
+    },
+    Webhook = {
+        Enabled = false,
+        URL = "",
+        PetUnlock = {
+            Enabled = false,
+            URL = "",
+            FilterRarities = {},
+        },
+    },
+    TaskExclusion = {
+        Enabled = false,
+        ExcludedTasks = {},
+    },
+
+    -- ========================
+    -- AUTO TRADE (sender)
+    -- ========================
+    AutoTrade = {
+        Enabled = true,
+        Receivers = {
+            "123_dEu63",
+            "3grh2_hr",
+            "udkc_jfx",
+            "ya55min_570166",
+            "1_flamingofan1011",
+            "lucius236523",
+            "Ba_byEr1c04",
+            "TaughtGras_sNice91",
+            "17k_vixxbe17",
+            "3gSgs_6",
+        },
+        TradeMode = "specific",
+        Categories = {"pets"},
+        Items = {
+            "sugarfest_2026_dark_choccybunny",
+            "sugarfest_2026_mochi_meow",
+            "sugarfest_2026_easter_bunny",
+            "penguins_2025_dango_penguins",
+            "food_pets_2026_dragonfruit_fox",
+            "endangered_2026_silverback_gorilla",
+            "endangered_2026_sea_turtle",
+            "endangered_2026_blue_whale",
+            "pet_progression_2026_purrowl",
+            "lss_2026_glormy_crab",
+            "admin_abuse_2025_sushi_penguin",
+            "admin_abuse_egg_2026_robot_chicken",
+            "admin_abuse_egg_2026_egg",
+        },
+        ItemCounts = {},
+        GlobalPetFilter = {
+            Versions = {},
+            Ages = {},
+        },
+        PetFilters = {
+            sugarfest_2026_dark_choccybunny = {
+                regular = {6},
+                neon = {},
+                mega = {},
+            },
+            sugarfest_2026_mochi_meow = {
+                neon = {6},
+                mega = {},
+            },
+            sugarfest_2026_easter_bunny = {
+                regular = {6},
+                neon = {},
+                mega = {},
+            },
+            penguins_2025_dango_penguins = {
+                regular = {},
+                neon = {},
+                mega = {},
+            },
+            food_pets_2026_dragonfruit_fox = {
+                regular = {},
+                neon = {},
+                mega = {},
+            },
+            endangered_2026_silverback_gorilla = {
+                regular = {},
+                neon = {},
+                mega = {},
+            },
+            endangered_2026_sea_turtle = {
+                neon = {6},
+                mega = {},
+            },
+            endangered_2026_blue_whale = {
+                neon = {6},
+                mega = {},
+            },
+            pet_progression_2026_purrowl = {
+                neon = {6},
+                mega = {},
+            },
+            lss_2026_glormy_crab = {
+                regular = {},
+                neon = {},
+                mega = {},
+            },
+            admin_abuse_2025_sushi_penguin = {
+                regular = {},
+                neon = {},
+                mega = {},
+            },
+            admin_abuse_egg_2026_robot_chicken = {
+                regular = {},
+                neon = {},
+                mega = {},
             },
         },
-        AutoOpen = {
-            Enabled = false, -- Start auto opening on load
-            Items = {}, -- Item IDs to open e.g. {"gift_box", "cracked_egg"}
-            OpenDelay = 1, -- Seconds between each open (0.5 - 3)
-        },
-       Shop = {
-            Enabled = false, -- Auto buy items on load
-            Items = {}, -- Item IDs to auto buy e.g. {"cracked_egg", "hot_dog_stand"}
-            BuyQuantity = 1, -- How many to buy per purchase (1, 5, 10, 25, 50, 100)
-            BuyDelay = 1, -- Seconds between purchases (0.5 - 3)
-        },
-        AccountManager = {
-            Enabled = false, -- Master toggle for account management
-            Tool = "none", -- "yummy", "farmsync"
-            Yummy = {
-                Action = "completed", -- "completed" = remove cookie/stop, "swap" = next cookie
-                Reason = "Done", -- Suffix for completed file (Completed-{Reason})
-            },
-            FarmSync = {
-                Action = "completed", -- "completed" = move to done folder, "swap" = move and replace
-                FromFolderId = "", -- Fresh cookies folder ID
-                ToFolderId = "", -- Done cookies folder ID
-                ChangeWithoutReplacement = false, -- Remove even if no replacement available
-                ConfigId = nil, -- Config for new account (nil = same config)
-            },
-        },
-        Settings = {
-            AutoShowUI = true, -- Show UI on script load (false = hidden, use toggle key)
-            Theme = "Dark", -- UI theme: "Dark", "Midnight", "Amoled"
-            ToggleKey = "RightShift", -- Key to toggle UI visibility
-        },
-    };
+    },
+}
