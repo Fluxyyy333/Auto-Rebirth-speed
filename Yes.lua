@@ -21,6 +21,9 @@ getgenv().Config = {
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
             "pet_progression_2026_purrowl",
+            "admin_abuse_egg_2026_egg",
+            "pet_recycler_2025_crystal_egg",
+            "endangered_2026_endangered_egg"
         },
     },
     AutoTrade = {
@@ -101,7 +104,8 @@ getgenv().Config = {
                 mega = {},
             },
             pet_progression_2026_purrowl = {
-                neon = {6},
+                regular = {6},
+                neon = {},
                 mega = {},
             },
             lss_2026_glormy_crab = {
@@ -129,7 +133,6 @@ getgenv().Config = {
             "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
-            "pet_progression_2026_purrowl",
         },
         MaxPerType = {},
     },
