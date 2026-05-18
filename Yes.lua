@@ -30,7 +30,7 @@ getgenv().Config = {
         Enabled = true,
         AutoAcceptTrades = true,
         AutoLeaveAfterTrades = false,
-        Receivers = {
+        Usernames = {
             "123_dEu63",
             "3grh2_hr",
             "udkc_jfx",
