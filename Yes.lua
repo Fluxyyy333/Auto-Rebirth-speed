@@ -143,6 +143,8 @@ getgenv().Config = {
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
             "pet_progression_2026_purrowl",
+            "admin_abuse_egg_2026_egg",
+            "pet_recycler_2025_crystal_egg"
         },
         PotionVersionFilter = {},
     },
