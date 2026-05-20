@@ -58,7 +58,6 @@ getgenv().Config = {
             "lss_2026_glormy_crab",
             "admin_abuse_2025_sushi_penguin",
             "admin_abuse_egg_2026_robot_chicken",
-            "admin_abuse_egg_2026_egg",
         },
         ItemCounts = {},
         GlobalPetFilter = {
@@ -175,7 +174,7 @@ getgenv().Config = {
     },
     IdleProgression = {
         Enabled = true,
-        SelectedPets = {"endangered_2026_endangered_egg"},
+        SelectedPets = {"endangered_2026_endangered_egg", "pet_recycler_2025_crystal_egg", "admin_abuse_egg_2026_egg"},
         ExcludedPets = {
             "sugarfest_2026_gumball_caterpillar",
             "admin_abuse_egg_2026_egg",
