@@ -58,6 +58,8 @@ getgenv().Config = {
             "lss_2026_glormy_crab",
             "admin_abuse_2025_sushi_penguin",
             "admin_abuse_egg_2026_robot_chicken",
+            "soggy_spring_2026_unicorn_ducky",
+            "soggy_spring_2026_strawberry_shortcake_ducky"
         },
         ItemCounts = {},
         GlobalPetFilter = {
@@ -122,6 +124,16 @@ getgenv().Config = {
                 neon = {},
                 mega = {},
             },
+            soggy_spring_2026_unicorn_ducky = {
+                regular = {},
+                neon = {},
+                mega = {},
+            },
+            soggy_spring_2026_strawberry_shortcake_ducky = {
+                regular = {},
+                neon = {},
+                mega = {},
+            },
         },
     },
     AutoNeon = {
@@ -149,7 +161,7 @@ getgenv().Config = {
     },
     AutoBuy = {
         Enabled = true,
-        SelectedItems = {"pet_recycler_2025_crystal_egg", "endangered_2026_endangered_egg"},
+        SelectedItems = {"soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg", "endangered_2026_endangered_egg"},
         BuyAmounts = {},
     },
     AutoPay = {
@@ -158,8 +170,8 @@ getgenv().Config = {
         Methods = {},
     },
     AutoOpen = {
-        Enabled = false,
-        Items = {},
+        Enabled = true,
+        Items = {"soggy_spring_2026_rubber_ducky_box"},
     },
     AutoRecycle = {
         Enabled = true,
@@ -170,7 +182,7 @@ getgenv().Config = {
             ultra_rare = {"regular", "neon", "mega"},
         },
         AgeFilter = {},
-        ExcludedPets = {},
+        ExcludedPets = {"soggy_spring_2026_unicorn_ducky", "soggy_spring_2026_strawberry_shortcake_ducky"},
     },
     IdleProgression = {
         Enabled = true,
