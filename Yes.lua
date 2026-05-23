@@ -8,10 +8,10 @@ getgenv().Config = {
     AutoCertificate = false,
     PetFarm = {
         Enabled = true,
-        FarmEggs = false,
-        BuyEggs = false,
-        EggTypes = {},
-        BuyEggType = "any",
+        FarmEggs = true,
+        BuyEggs = true,
+        EggTypes = {"endangered_2026_endangered_egg"},
+        BuyEggType = "endangered_2026_endangered_egg",
         MaxPets = 1,
         FarmUntilFullGrown = true,
         PrioritizeFriendship = false,
@@ -193,8 +193,6 @@ getgenv().Config = {
         SelectedPets = {"endangered_2026_endangered_egg", "pet_recycler_2025_crystal_egg", "admin_abuse_egg_2026_egg"},
         ExcludedPets = {
             "sugarfest_2026_gumball_caterpillar",
-            "admin_abuse_egg_2026_egg",
-            "pet_recycler_2025_crystal_egg",
             "penguins_2025_dango_penguins",
             "food_pets_2026_dragonfruit_fox",
             "endangered_2026_silverback_gorilla",
