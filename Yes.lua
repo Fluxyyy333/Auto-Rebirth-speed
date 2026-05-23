@@ -17,7 +17,7 @@ getgenv().Config = {
         PrioritizeFriendship = false,
         SelectiveFarm = true,
         SelectedPetTypes = {
-            "soggy_spring_2026_unicorn_ducky"
+            "soggy_spring_2026_unicorn_ducky",
             "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
@@ -153,7 +153,7 @@ getgenv().Config = {
     AutoPotion = {
         Enabled = true,
         SelectedPets = {
-            "soggy_spring_2026_unicorn_ducky"
+            "soggy_spring_2026_unicorn_ducky",
             "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
