@@ -165,7 +165,7 @@ getgenv().Config = {
     },
     AutoBuy = {
         Enabled = true,
-        SelectedItems = {"soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg", "endangered_2026_endangered_egg"},
+        SelectedItems = {"soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg"},
         BuyAmounts = {},
     },
     AutoPay = {
