@@ -17,6 +17,7 @@ getgenv().Config = {
         PrioritizeFriendship = false,
         SelectiveFarm = true,
         SelectedPetTypes = {
+            "soggy_spring_2026_strawberry_shortcake_ducky",
             "soggy_spring_2026_unicorn_ducky",
             "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
@@ -128,12 +129,12 @@ getgenv().Config = {
                 mega = {},
             },
             soggy_spring_2026_unicorn_ducky = {
-                regular = {6},
-                neon = {},
+                regular = {},
+                neon = {6},
                 mega = {},
             },
             soggy_spring_2026_strawberry_shortcake_ducky = {
-                regular = {},
+                regular = {6},
                 neon = {},
                 mega = {},
             },
@@ -147,19 +148,22 @@ getgenv().Config = {
             "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
+            "soggy_spring_2026_strawberry_shortcake_ducky",
+            "soggy_spring_2026_unicorn_ducky",
         },
         MaxPerType = {},
     },
     AutoPotion = {
         Enabled = true,
         SelectedPets = {
-            "soggy_spring_2026_unicorn_ducky",
             "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
             "pet_progression_2026_purrowl",
             "admin_abuse_egg_2026_egg",
-            "pet_recycler_2025_crystal_egg"
+            "pet_recycler_2025_crystal_egg",
+            "soggy_spring_2026_unicorn_ducky",
+            "soggy_spring_2026_strawberry_shortcake_ducky",
         },
         PotionVersionFilter = {},
     },
