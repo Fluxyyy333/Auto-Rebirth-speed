@@ -128,7 +128,7 @@ getgenv().Config = {
                 mega = {},
             },
             soggy_spring_2026_unicorn_ducky = {
-                regular = {},
+                regular = {6},
                 neon = {},
                 mega = {},
             },
