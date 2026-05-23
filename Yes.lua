@@ -98,11 +98,13 @@ getgenv().Config = {
                 mega = {},
             },
             endangered_2026_sea_turtle = {
-                neon = {6},
+                regular = {6},
+                neon = {},
                 mega = {},
             },
             endangered_2026_blue_whale = {
-                neon = {6},
+                regular = {6},
+                neon = {},
                 mega = {},
             },
             pet_progression_2026_purrowl = {
