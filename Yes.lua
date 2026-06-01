@@ -127,7 +127,7 @@ getgenv().Config = {
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
             "soggy_spring_2026_unicorn_ducky",
-            "soggy_spring_2026_glyptodon_ducky"
+            "soggy_spring_2026_glyptodon_ducky",
             "journey_2026_bison"
         },
         MaxPerType = {},
