@@ -109,7 +109,7 @@ getgenv().Config = {
             },
             journey_2026_bison = {
                 regular = {6},
-                neon = {},
+                neon = {6},
                 mega = {},
             },
             soggy_spring_2026_glyptodon_ducky = {
