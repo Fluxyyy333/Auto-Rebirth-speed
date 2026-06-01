@@ -10,27 +10,28 @@ getgenv().Config = {
         Enabled = true,
         FarmEggs = true,
         BuyEggs = true,
-        EggTypes = {"endangered_2026_endangered_egg"},
-        BuyEggType = "endangered_2026_endangered_egg",
+        EggTypes = {"endangered_2026_endangered_egg", "pet_recycler_2025_crystal_egg", "admin_abuse_egg_2026_egg"},
+        BuyEggType = "any",
         MaxPets = 1,
         FarmUntilFullGrown = true,
         PrioritizeFriendship = false,
         SelectiveFarm = true,
         SelectedPetTypes = {
+            "journey_2026_bison",
             "soggy_spring_2026_strawberry_shortcake_ducky",
             "soggy_spring_2026_unicorn_ducky",
-            "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
             "pet_progression_2026_purrowl",
             "admin_abuse_egg_2026_egg",
             "pet_recycler_2025_crystal_egg",
-            "endangered_2026_endangered_egg"
+            "endangered_2026_endangered_egg",
+            "admin_abuse_egg_2026_robot_chicken",
         },
     },
     AutoTrade = {
         Enabled = true,
-        AutoAcceptTrades = true,
+        AutoAcceptTrades = false,
         AutoLeaveAfterTrades = false,
         Usernames = {
             "123_dEu63",
@@ -48,9 +49,6 @@ getgenv().Config = {
         Categories = {"pets", "toys"},
         Items = {
             "paint_2023_colored_hair_spray_sealer",
-            "sugarfest_2026_dark_choccybunny",
-            "sugarfest_2026_mochi_meow",
-            "sugarfest_2026_easter_bunny",
             "penguins_2025_dango_penguins",
             "food_pets_2026_dragonfruit_fox",
             "endangered_2026_silverback_gorilla",
@@ -61,7 +59,8 @@ getgenv().Config = {
             "admin_abuse_2025_sushi_penguin",
             "admin_abuse_egg_2026_robot_chicken",
             "soggy_spring_2026_unicorn_ducky",
-            "soggy_spring_2026_strawberry_shortcake_ducky"
+            "soggy_spring_2026_strawberry_shortcake_ducky",
+            "journey_2026_bison"
         },
         ItemCounts = {},
         GlobalPetFilter = {
@@ -83,21 +82,6 @@ getgenv().Config = {
                 neon = {},
                 mega = {},
             },
-            penguins_2025_dango_penguins = {
-                regular = {},
-                neon = {},
-                mega = {},
-            },
-            food_pets_2026_dragonfruit_fox = {
-                regular = {},
-                neon = {},
-                mega = {},
-            },
-            endangered_2026_silverback_gorilla = {
-                regular = {},
-                neon = {},
-                mega = {},
-            },
             endangered_2026_sea_turtle = {
                 regular = {6},
                 neon = {},
@@ -113,21 +97,6 @@ getgenv().Config = {
                 neon = {},
                 mega = {},
             },
-            lss_2026_glormy_crab = {
-                regular = {},
-                neon = {},
-                mega = {},
-            },
-            admin_abuse_2025_sushi_penguin = {
-                regular = {},
-                neon = {},
-                mega = {},
-            },
-            admin_abuse_egg_2026_robot_chicken = {
-                regular = {},
-                neon = {},
-                mega = {},
-            },
             soggy_spring_2026_unicorn_ducky = {
                 regular = {6},
                 neon = {6},
@@ -138,6 +107,16 @@ getgenv().Config = {
                 neon = {},
                 mega = {},
             },
+            journey_2026_bison = {
+                regular = {6},
+                neon = {},
+                mega = {},
+            },
+            soggy_spring_2026_glyptodon_ducky = {
+                regular = {},
+                neon = {6},
+                mega = {},
+            },
         },
     },
     AutoNeon = {
@@ -145,31 +124,30 @@ getgenv().Config = {
         MakeMega = false,
         NeonAll = false,
         SelectedPets = {
-            "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
-            "soggy_spring_2026_strawberry_shortcake_ducky",
             "soggy_spring_2026_unicorn_ducky",
+            "soggy_spring_2026_glyptodon_ducky"
         },
         MaxPerType = {},
     },
     AutoPotion = {
         Enabled = true,
         SelectedPets = {
-            "sugarfest_2026_mochi_meow",
             "endangered_2026_sea_turtle",
             "endangered_2026_blue_whale",
             "pet_progression_2026_purrowl",
             "admin_abuse_egg_2026_egg",
-            "pet_recycler_2025_crystal_egg",
             "soggy_spring_2026_unicorn_ducky",
             "soggy_spring_2026_strawberry_shortcake_ducky",
+            "journey_2026_bison",
+            "soggy_spring_2026_glyptodon_ducky"
         },
         PotionVersionFilter = {},
     },
     AutoBuy = {
         Enabled = true,
-        SelectedItems = {"soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg"},
+        SelectedItems = {"endangered_2026_endangered_egg", "soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg", "journey_2026_bison"},
         BuyAmounts = {},
     },
     AutoPay = {
@@ -190,7 +168,7 @@ getgenv().Config = {
             ultra_rare = {"regular", "neon", "mega"},
         },
         AgeFilter = {},
-        ExcludedPets = {"soggy_spring_2026_unicorn_ducky", "soggy_spring_2026_strawberry_shortcake_ducky"},
+        ExcludedPets = {"soggy_spring_2026_unicorn_ducky", "soggy_spring_2026_strawberry_shortcake_ducky", "soggy_spring_2026_glyptodon_ducky", "journey_2026_bison"},
     },
     IdleProgression = {
         Enabled = true,
@@ -210,10 +188,6 @@ getgenv().Config = {
         },
         PriorityOrder = {"regular"},
         PenVersionFilter = {},
-    },
-    EventFarm = {
-        CandyCliff = false,
-        MochiNail = true,
     },
     AccountManager = {
         Enabled = false,
