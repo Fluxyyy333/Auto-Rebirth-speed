@@ -48,6 +48,7 @@ getgenv().Config = {
         TradeMode = "specific",
         Categories = {"pets", "toys"},
         Items = {
+            "soggy_spring_2026_glyptodon_ducky",
             "paint_2023_colored_hair_spray_sealer",
             "penguins_2025_dango_penguins",
             "food_pets_2026_dragonfruit_fox",
@@ -148,7 +149,7 @@ getgenv().Config = {
     },
     AutoBuy = {
         Enabled = true,
-        SelectedItems = {"endangered_2026_endangered_egg", "soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg", "journey_2026_bison"},
+        SelectedItems = {"endangered_2026_endangered_egg", "soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg"},
         BuyAmounts = {},
     },
     AutoPay = {
