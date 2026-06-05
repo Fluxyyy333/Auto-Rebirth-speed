@@ -118,6 +118,11 @@ getgenv().Config = {
                 neon = {6},
                 mega = {},
             },
+            journey_2026_nurse_shark = {
+                regular = {6},
+                neon = {},
+                mega = {},
+            },
         },
     },
     AutoNeon = {
@@ -129,7 +134,8 @@ getgenv().Config = {
             "endangered_2026_blue_whale",
             "soggy_spring_2026_unicorn_ducky",
             "soggy_spring_2026_glyptodon_ducky",
-            "journey_2026_bison"
+            "journey_2026_bison",
+            "journey_2026_nurse_shark"
         },
         MaxPerType = {},
     },
@@ -143,13 +149,14 @@ getgenv().Config = {
             "soggy_spring_2026_unicorn_ducky",
             "soggy_spring_2026_strawberry_shortcake_ducky",
             "journey_2026_bison",
-            "soggy_spring_2026_glyptodon_ducky"
+            "soggy_spring_2026_glyptodon_ducky",
+            "journey_2026_nurse_shark"
         },
         PotionVersionFilter = {},
     },
     AutoBuy = {
         Enabled = true,
-        SelectedItems = {"endangered_2026_endangered_egg", "soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg"},
+        SelectedItems = {"endangered_2026_endangered_egg", "soggy_spring_2026_rubber_ducky_box", "pet_recycler_2025_crystal_egg", "journey_2026_nurse_shark"},
         BuyAmounts = {},
     },
     AutoPay = {
