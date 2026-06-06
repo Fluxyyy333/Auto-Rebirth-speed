@@ -61,7 +61,8 @@ getgenv().Config = {
             "admin_abuse_egg_2026_robot_chicken",
             "soggy_spring_2026_unicorn_ducky",
             "soggy_spring_2026_strawberry_shortcake_ducky",
-            "journey_2026_bison"
+            "journey_2026_bison",
+            "journey_2026_nurse_shark"
         },
         ItemCounts = {},
         GlobalPetFilter = {
@@ -99,7 +100,7 @@ getgenv().Config = {
                 mega = {},
             },
             soggy_spring_2026_unicorn_ducky = {
-                regular = {6},
+                regular = {},
                 neon = {6},
                 mega = {},
             },
@@ -177,7 +178,7 @@ getgenv().Config = {
             ultra_rare = {"regular", "neon", "mega"},
         },
         AgeFilter = {},
-        ExcludedPets = {"soggy_spring_2026_unicorn_ducky", "soggy_spring_2026_strawberry_shortcake_ducky", "soggy_spring_2026_glyptodon_ducky", "journey_2026_bison"},
+        ExcludedPets = {"soggy_spring_2026_unicorn_ducky", "soggy_spring_2026_strawberry_shortcake_ducky", "soggy_spring_2026_glyptodon_ducky", "journey_2026_bison", "journey_2026_nurse_shark"},
     },
     IdleProgression = {
         Enabled = true,
